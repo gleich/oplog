@@ -7,24 +7,24 @@ import (
 
 var logger = slog.New(slog.NewTextHandler(os.Stdout, nil))
 
-type Opt string
+type Operation string
 
-func log(fn func(string, ...any), opt Opt, msg string, v ...any) {
+func log(fn func(string, ...any), opt Operation, msg string, v ...any) {
 	fn(msg, append([]any{"opt", opt}, v...)...)
 }
 
-func (opt Opt) Info(msg string, v ...any) {
+func (opt Operation) Info(msg string, v ...any) {
 	log(logger.Info, opt, msg, v...)
 }
 
-func (opt Opt) Debug(msg string, v ...any) {
+func (opt Operation) Debug(msg string, v ...any) {
 	log(logger.Debug, opt, msg, v...)
 }
 
-func (opt Opt) Warn(msg string, v ...any) {
+func (opt Operation) Warn(msg string, v ...any) {
 	log(logger.Warn, opt, msg, v...)
 }
 
-func (opt Opt) Error(err error, msg string, v ...any) {
+func (opt Operation) Error(err error, msg string, v ...any) {
 	log(logger.Error, opt, msg, append([]any{"error", err}, v...)...)
 }
