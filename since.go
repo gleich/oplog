@@ -1,7 +1,6 @@
 package oplog
 
 import (
-	"log/slog"
 	"time"
 )
 
@@ -14,17 +13,17 @@ func logSince(fn func(string, ...any), msg string, operation string, start time.
 }
 
 func InfoSince(msg string, operation string, start time.Time, v ...any) {
-	logSince(slog.Info, msg, operation, start, v...)
+	logSince(logger.Info, msg, operation, start, v...)
 }
 
 func DebugSince(msg string, operation string, start time.Time, v ...any) {
-	logSince(slog.Debug, msg, operation, start, v...)
+	logSince(logger.Debug, msg, operation, start, v...)
 }
 
 func WarnSince(msg string, operation string, start time.Time, v ...any) {
-	logSince(slog.Warn, msg, operation, start, v...)
+	logSince(logger.Warn, msg, operation, start, v...)
 }
 
 func ErrorSince(msg string, operation string, start time.Time, v ...any) {
-	logSince(slog.Error, msg, operation, start, v...)
+	logSince(logger.Error, msg, operation, start, v...)
 }

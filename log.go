@@ -1,23 +1,28 @@
 package oplog
 
-import "log/slog"
+import (
+	"log/slog"
+	"os"
+)
 
-func log(fn func(string, ...any), msg string, operation string, v ...any) {
-	fn(msg, append([]any{"operation", operation}, v...)...)
+var logger = slog.New(slog.NewTextHandler(os.Stdout, nil))
+
+func log(fn func(string, ...any), msg string, opt string, v ...any) {
+	fn(msg, append([]any{"operation", opt}, v...)...)
 }
 
-func Info(msg string, operation string, v ...any) {
-	log(slog.Info, msg, operation, v...)
+func Info(msg, opt string, v ...any) {
+	log(logger.Info, msg, opt, v...)
 }
 
-func Debug(msg string, operation string, v ...any) {
-	log(slog.Debug, msg, operation, v...)
+func Debug(msg, opt string, v ...any) {
+	log(logger.Debug, msg, opt, v...)
 }
 
-func Warn(msg string, operation string, v ...any) {
-	log(slog.Warn, msg, operation, v...)
+func Warn(msg, opt string, v ...any) {
+	log(logger.Warn, msg, opt, v...)
 }
 
-func Error(err error, operation string, v ...any) {
-	log(slog.Error, err.Error(), operation, v...)
+func Error(err error, msg, opt string, v ...any) {
+	log(logger.Error, msg, opt, append([]any{"error", err}, v...)...)
 }
