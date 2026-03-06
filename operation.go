@@ -1,7 +1,7 @@
 package oplog
 
-type Operation string
+type Op string
 
-func (o Operation) Extend(opt string) Operation {
-	return Operation(string(o) + "," + opt)
+func (o Op) Extend(opt string) Op {
+	return Op(string(o) + "-" + opt)
 }
