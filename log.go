@@ -7,22 +7,22 @@ import (
 
 var logger = slog.New(slog.NewTextHandler(os.Stdout, nil))
 
-func log(fn func(string, ...any), o Op, msg string, v ...any) {
-	fn(msg, append([]any{"operation", o}, v...)...)
+func log(fn func(string, ...any), o Task, msg string, v ...any) {
+	fn(msg, append([]any{"task", o}, v...)...)
 }
 
-func (o Op) Info(msg string, v ...any) {
-	log(logger.Info, o, msg, v...)
+func (t Task) Info(msg string, v ...any) {
+	log(logger.Info, t, msg, v...)
 }
 
-func (o Op) Debug(msg string, v ...any) {
-	log(logger.Debug, o, msg, v...)
+func (t Task) Debug(msg string, v ...any) {
+	log(logger.Debug, t, msg, v...)
 }
 
-func (o Op) Warn(msg string, v ...any) {
-	log(logger.Warn, o, msg, v...)
+func (t Task) Warn(msg string, v ...any) {
+	log(logger.Warn, t, msg, v...)
 }
 
-func (o Op) Error(err error, msg string, v ...any) {
-	log(logger.Error, o, msg, append([]any{"error", err}, v...)...)
+func (t Task) Error(err error, msg string, v ...any) {
+	log(logger.Error, t, msg, append([]any{"error", err}, v...)...)
 }

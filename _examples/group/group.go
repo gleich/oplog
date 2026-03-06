@@ -3,10 +3,10 @@ package main
 import "go.mattglei.ch/tlog"
 
 var Cache = tlog.Group("cache", &struct {
-	MarshalResponse tlog.Op
+	MarshalResponse tlog.Task
 	Marshal         struct {
-		JSON tlog.Op
-		CSV  tlog.Op
+		JSON tlog.Task
+		CSV  tlog.Task
 	}
 }{})
 

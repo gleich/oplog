@@ -17,7 +17,7 @@ func Group[T any](root string, group *T) T {
 		panic("tlog: group must point to a struct")
 	}
 
-	fillGroup(v, Op(root))
+	fillGroup(v, Task(root))
 	return *group
 }
 
@@ -39,9 +39,9 @@ func kebabCase(s string) string {
 	return b.String()
 }
 
-func fillGroup(v reflect.Value, prefix Op) {
+func fillGroup(v reflect.Value, prefix Task) {
 	t := v.Type()
-	opType := reflect.TypeFor[Op]()
+	taskType := reflect.TypeFor[Task]()
 
 	for i := 0; i < t.NumField(); i++ {
 		field := t.Field(i)
@@ -57,7 +57,7 @@ func fillGroup(v reflect.Value, prefix Op) {
 		}
 
 		switch field.Type {
-		case opType:
+		case taskType:
 			value.Set(reflect.ValueOf(prefix.Extend(name)))
 		default:
 			if value.Kind() == reflect.Struct {
@@ -66,7 +66,7 @@ func fillGroup(v reflect.Value, prefix Op) {
 			}
 
 			panic(fmt.Sprintf(
-				`tlog: field %q has unsupported type %s; expected tlog.Op or nested struct`,
+				`tlog: field %q has unsupported type %s; expected tlog.Task or nested struct`,
 				field.Name,
 				field.Type,
 			))
