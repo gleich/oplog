@@ -20,6 +20,6 @@ func (t Task) WarnSince(msg string, start time.Time, v ...any) {
 	logSince(logger.Warn, t, msg, start, v...)
 }
 
-func (t Task) ErrorSince(msg string, start time.Time, v ...any) {
-	logSince(logger.Error, t, msg, start, v...)
+func (t Task) ErrorSince(err error, msg string, start time.Time, v ...any) {
+	logSince(logger.Error, t, msg, start, appendError(err, v...)...)
 }
